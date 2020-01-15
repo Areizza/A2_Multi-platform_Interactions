@@ -42,6 +42,8 @@ AFRAME.registerComponent('create-cow-component', {
 
         cowElem.setAttribute('rotation', {x:0, y:Math.random() * 360.0, z:0}); //random y rotation
 
+        cowElem.setAttribute('delete-cow-component', "");
+
         //attach to scene
         let scene = document.querySelector('a-scene');
         scene.appendChild(cowElem);
