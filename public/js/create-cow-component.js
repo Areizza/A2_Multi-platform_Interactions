@@ -8,6 +8,7 @@ AFRAME.registerComponent('create-cow-component', {
         //add event listener for "click" event on whatever entity has this component
         Context_AF.el.addEventListener('click', function(event) {
             console.log("clicked!!!!!!!!");
+            Context_AF.createCow();
         });
 
         //make button larger on hover
@@ -28,5 +29,21 @@ AFRAME.registerComponent('create-cow-component', {
         const Context_AF = this; //be careful of "this"!
 
         //create an html element that loads in cows model
+        let cowElem = document.createElement('a-entity'); //create element by code
+        cowElem.setAttribute('class', 'clickable');
+        cowElem.setAttribute('obj-model', {obj: 'assets/models/Cow.obj'}); //set model
+        cowElem.setAttribute('material', {src: 'assets/textures/Cow.png'}); //set material/texture
+
+        //random transforms
+        cowElem.setAttribute('position', {x:(Math.random() * 6.0) - 3.0, y: 0, z:-4.0 - (Math.random() * 3.0)}); //random x around axis and random z behind button, above ground on y=0
+
+        const randScale = 0.2 + (Math.random() * 0.8);
+        cowElem.setAttribute('scale', {x:randScale, y:randScale, z:randScale}); //random scale
+
+        cowElem.setAttribute('rotation', {x:0, y:Math.random() * 360.0, z:0}); //random y rotation
+
+        //attach to scene
+        let scene = document.querySelector('a-scene');
+        scene.appendChild(cowElem);
     }
 });
