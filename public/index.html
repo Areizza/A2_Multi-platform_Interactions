@@ -3,7 +3,7 @@
     <head>
         <title>Cylinder and Plane</title>
         <script src="https://aframe.io/releases/1.0.3/aframe.min.js"></script>
-        <script src="https://unpkg.com/aframe-environment-component@1.1.0/dist/aframe-environment-component.min.js"></script>
+        <script src="js/create-cow-component.js"></script>
     </head>
     <body>
         <a-scene> 
@@ -22,6 +22,7 @@
             </a-entity>
             <a-entity   id="button"
                         class="clickable"
+                        create-cow-component=""
                         geometry="primitive:cylinder; radius:0.4; height:0.1;"
                         material="color:rgb(255, 200, 100);">
             </a-entity>
