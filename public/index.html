@@ -20,7 +20,8 @@
                         geometry="primitive:plane; width:10; height:10;"
                         material="color:#7BC8A4">
             </a-entity>
-            <a-entity   id="some_cylinder"
+            <a-entity   id="button"
+                        class="clickable"
                         geometry="primitive:cylinder; radius:0.4; height:0.1;"
                         material="color:rgb(255, 200, 100);">
             </a-entity>
@@ -28,7 +29,18 @@
                         gltf-model="#helmet"
                         position="0 1 -2">
             </a-entity>
-            
+
+
+            <!-- camera and lights, add cursor component to camera-->
+            <a-entity position="0 1.2 2" camera look-controls wasd-controls>
+                <!-- cursor allows us to interact with objects; add raycaster and set constraints to increase performance -->
+                <!-- "objects" refers to entities that will trigger the raycaster (i.e. set objects to class name .clickable to only trigger entities with clickable as class) -->
+                <!-- raycaster only check entities with class name "clickable" , decrease number of elements to check for-->
+                <a-entity   cursor="rayOrigin:mouse"
+                            raycaster="far:20; interval:100; objects:.clickable">
+                </a-entity>
+            </a-entity>
+
         </a-scene>
     </body>
 </html>
