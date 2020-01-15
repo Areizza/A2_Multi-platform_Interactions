@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Cylinder and Plane</title>
+        <script src="https://aframe.io/releases/1.0.3/aframe.min.js"></script>
+        <script src="https://unpkg.com/aframe-environment-component@1.1.0/dist/aframe-environment-component.min.js"></script>
+    </head>
+    <body>
+        <a-scene> 
+            <!-- asset management system helps to cache resources for reuse -->
+            <a-assets>
+                <!-- crossorigin allows loading from other domains -->
+                <a-asset-item id="helmet" src="/public/assets/models/DamagedHelmet.glb" crossorigin="anonymous"> </a-asset-item>
+            </a-assets>
+
+            <a-entity   id="some_plane"
+                        position= "0 0 0"
+                        rotation = "-90 180 0"
+                        scale = "1 1 1"
+                        geometry="primitive:plane; width:20; height:20;"
+                        material="color:green; shader:flat">
+            </a-entity>
+            <a-entity   id="some_cylinder"
+                        geometry="primitive:cylinder; height:1; radius:0.5;"
+                        material="color:blue;">
+            </a-entity>
+            <a-entity   id="damaged_helmet"
+                        gltf-model="#helmet"
+                        position="10 0 0">
+            </a-entity>
+            
+        </a-scene>
+    </body>
+</html>
