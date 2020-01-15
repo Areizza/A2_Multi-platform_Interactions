@@ -7,7 +7,7 @@ const server    = http.createServer(app); //pass express app into created server
 const PORT      = 1111; //default unsecured is 80 if not defined; some ports are reserved
 server.listen(PORT); //port to access server
 
-app.use(express.static(__dirname + "\public")); //describe where files are located
+app.use(express.static(__dirname + "/public")); //describe where files are located
 
 console.log("Listening on port: " + PORT);
 

@@ -9,24 +9,24 @@
         <a-scene> 
             <!-- asset management system helps to cache resources for reuse -->
             <a-assets>
-                <!-- crossorigin allows loading from other domains -->
-                <a-asset-item id="helmet" src="/public/assets/models/DamagedHelmet.glb" crossorigin="anonymous"> </a-asset-item>
+                <!-- crossorigin allows loading from other domains, always use response type on .glb and sound files -->
+                <a-asset-item id="helmet" crossorigin="anonymous" response-type="arraybuffer" src="assets/models/DamagedHelmet.glb"></a-asset-item>
             </a-assets>
 
-            <a-entity   id="some_plane"
+            <a-entity   id="ground"
                         position= "0 0 0"
-                        rotation = "-90 180 0"
+                        rotation = "-90 0 0"
                         scale = "1 1 1"
-                        geometry="primitive:plane; width:20; height:20;"
-                        material="color:green; shader:flat">
+                        geometry="primitive:plane; width:10; height:10;"
+                        material="color:#7BC8A4">
             </a-entity>
             <a-entity   id="some_cylinder"
-                        geometry="primitive:cylinder; height:1; radius:0.5;"
-                        material="color:blue;">
+                        geometry="primitive:cylinder; radius:0.4; height:0.1;"
+                        material="color:rgb(255, 200, 100);">
             </a-entity>
             <a-entity   id="damaged_helmet"
                         gltf-model="#helmet"
-                        position="10 0 0">
+                        position="0 1 -2">
             </a-entity>
             
         </a-scene>
