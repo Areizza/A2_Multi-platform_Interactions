@@ -3,7 +3,7 @@
     <head>
         <title>Cylinder and Plane</title>
         <script src="https://aframe.io/releases/1.0.3/aframe.min.js"></script>
-        <script src="js/create-cow-component.js"></script>
+        <script src="js/create-cheese-component.js"></script>
         <script src="js/delete-cow-component.js"></script>
     </head>
     <body>
@@ -14,54 +14,76 @@
                 <a-asset-item id="helmet" crossorigin="anonymous" response-type="arraybuffer" src="assets/models/DamagedHelmet.glb"></a-asset-item>
             </a-assets>
 
-             <!--#region ENVIRONMENT  -->
+            <!--#region ENVIRONMENT  -->
             <a-entity   id="ground"
                         position= "0 0 0"
                         rotation = "-90 0 0"
                         scale = "1 1 1"
                         geometry="primitive:plane; width:10; height:10;"
-                        material="color:#7BC8A4"
-                        static-body>
+                        material="color:#7BC8A4">
             </a-entity>
             <a-entity   id="ceiling"
                         position= "0 3.5 0"
                         rotation = "90 0 0"
                         scale = "1 1 1"
                         geometry="primitive:plane; width:10; height:10;"
-                        material="color:#7BC8A4"
-                        static-body>
+                        material="color:#7BC8A4; flatShading:true;">
+            </a-entity>
+            <a-entity light="type: ambient; color: #CCC; intensity: 0.25"></a-entity>
+            <a-entity   id="light_left"
+                        light="type:point; intensity:0.5;"
+                        position="-2 1 0">
+            </a-entity>
+            <a-entity   id="lightbulb_left"
+                        position= "-2 3.25 0"
+                        geometry="primitive:sphere; radius:0.25;"
+                        material="color:yellow; flatShading:true; emissive:color:white; emissiveIntensity:0.5">
+            </a-entity>
+            <a-entity   id="light_center"
+                        light="type:point; intensity:0.5;"
+                        position="0 1 0">
+            </a-entity>
+            <a-entity   id="lightbulb_center"
+                        position= "0 3.25 0"
+                        geometry="primitive:sphere; radius:0.25;"
+                        material="color:yellow; flatShading:true; emissive:color:white; emissiveIntensity:0.5">
+            </a-entity>
+            <a-entity   id="light_right"
+                        light="type:point; intensity:0.5;"
+                        position="2.5 1 0">
+            </a-entity>
+            <a-entity   id="lightbulb_right"
+                        position= "2.5 3.25 0"
+                        geometry="primitive:sphere; radius:0.25;"
+                        material="color:yellow; flatShading:true; emissive:color:white; emissiveIntensity:0.5">
             </a-entity>
             <a-entity   id="wall_right"
                         position= "5 0 0"
                         rotation = "0 -90 0"
                         scale = "1 1 1"
                         geometry="primitive:plane; width:10; height:7;"
-                        material="color:blue"
-                        static-body>
+                        material="color:blue">
             </a-entity>
             <a-entity   id="wall_left"
                         position= "-5 0 0"
                         rotation = "0 90 0"
                         scale = "1 1 1"
                         geometry="primitive:plane; width:10; height:7;"
-                        material="color:blue"
-                        static-body>
+                        material="color:blue"y>
             </a-entity>
             <a-entity   id="wall_back"
                         position= "0 0 5"
                         rotation = "0 180 0"
                         scale = "1 1 1"
                         geometry="primitive:plane; width:10; height:7;"
-                        material="color:blue"
-                        static-body>
+                        material="color:blue">
             </a-entity>
             <a-entity   id="wall_front"
                         position= "0 0 -5"
                         rotation = "0 0 0"
                         scale = "1 1 1"
                         geometry="primitive:box; width:10; height:7; depth:0.001;"
-                        material="color:blue"
-                        static-body>
+                        material="color:blue">
             </a-entity>
 
             <a-entity   id="table"
@@ -70,23 +92,41 @@
             </a-entity>
             <!--#endregion -->
 
-            <a-entity   id="trash"
-                        class="clickable"
-                        position= "-2 0.5 0"
-                        geometry="primitive:box; width:1; height:0.1; depth:1;"
-                        material="color:black;">
-            </a-entity>
+            <!--#region OVEN -->
             <a-entity   id="oven"
                         position= "0 0 -4.5"
                         geometry="primitive:box; width:3; height:4; depth:1;"
-                        material="color:#808080;">
+                        material="color:#808080; metalness:0.3">
+            </a-entity>
+            <a-entity   id="oven_top"
+                        position= "0 2 -4.2"
+                        geometry="primitive:box; width:3.5; height:0.05; depth:1;"
+                        material="color:#808080; metalness:0.3">
+            </a-entity>
+            <a-entity   id="oven_middle"
+                        position= "0 1.5 -4.2"
+                        geometry="primitive:box; width:3.5; height:0.05; depth:1;"
+                        material="color:#808080; metalness:0.3">
+            </a-entity>
+            <a-entity   id="oven_base"
+                        position= "0 0.1 -4.2"
+                        geometry="primitive:box; width:3.5; height:0.2; depth:1;"
+                        material="color:#808080; metalness:0.3">
             </a-entity>
             <a-entity   id="fire"
                         class="clickable"
                         position= "0 0.7 -4"
                         geometry="primitive:box; width:2; height:1; depth:0.03;"
-                        material="color:red;">
+                        material="color:#e25822; emissive:red; emissiveIntensity:0.8;">
             </a-entity>
+            <!-- #endregion -->
+           
+            <a-entity   id="trash"
+                        class="clickable"
+                        position= "-2 0.5 0"
+                        geometry="primitive:box; width:1; height:0.1; depth:1;"
+                        material="color:black;">
+            </a-entity>           
             <a-entity   id="plate"
                         class="clickable"
                         position= "0 0.5 0"
@@ -99,22 +139,22 @@
                                     position= "0 0.1 0"
                                     create-cow-component=""
                                     geometry="primitive:cylinder; radius:0.7; height:0.05;"
-                                    material="color:#bf8d3c;">
+                                    material="color:#bf8d3c; roughness:0.8;">
                         </a-entity>
             </a-entity>
 
             <a-entity   id="cheese_button"
                         class="clickable"
-                        position= "1.5 0.55 -0.5"
-                        create-cow-component=""
-                        geometry="primitive:cylinder; radius:0.3; height:0.05;"
+                        position= "-0.7 0.55 0.7"
+                        create-cheese-component=""
+                        geometry="primitive:cylinder; radius:0.1; height:0.05;"
                         material="color:#ffd867;">
             </a-entity>
             <a-entity   id="pepperoni_button"
                         class="clickable"
-                        position= "1.5 0.55 0.5"
-                        create-cow-component=""
-                        geometry="primitive:cylinder; radius:0.3; height:0.05;"
+                        position= "0.7 0.55 0.7"
+                        create-cheese-component=""
+                        geometry="primitive:cylinder; radius:0.1; height:0.05;"
                         material="color:#ca2521;">
             </a-entity>
 
@@ -126,10 +166,9 @@
 
 
             <!-- camera and lights, add cursor component to camera-->
-            <a-entity position="0 1.2 2" camera look-controls wasd-controls>
+            <a-entity position="0 1.2 2" camera look-controls>
                 <!-- cursor allows us to interact with objects; add raycaster and set constraints to increase performance -->
-                <!-- "objects" refers to entities that will trigger the raycaster (i.e. set objects to class name .clickable to only trigger entities with clickable as class) -->
-                <!-- raycaster only check entities with class name "clickable" , decrease number of elements to check for-->
+                <!-- wasd turned off to limit movement-->
                 <a-entity   cursor="rayOrigin:mouse"
                             raycaster="far:20; interval:100; objects:.clickable">
                 </a-entity>
