@@ -4,7 +4,7 @@ const app       = express(); //initialize code
 const http      = require("http"); //http is built-in
 const server    = http.createServer(app); //pass express app into created server to initialize
 
-const PORT      = 1111; //default unsecured is 80 if not defined; some ports are reserved
+const PORT      = 8080; //default unsecured is 80 if not defined; some ports are reserved
 server.listen(PORT); //port to access server
 
 app.use(express.static(__dirname + "/public")); //describe where files are located
