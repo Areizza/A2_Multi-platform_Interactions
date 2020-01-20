@@ -3,8 +3,8 @@
     <head>
         <title>Cylinder and Plane</title>
         <script src="https://aframe.io/releases/1.0.3/aframe.min.js"></script>
-        <script src="js/create-cheese-component.js"></script>
-        <script src="js/delete-cow-component.js"></script>
+        <script src="js/create-topping-component.js"></script>
+        <script src="js/delete-topping-component.js"></script>
     </head>
     <body>
         <a-scene> 
@@ -157,14 +157,14 @@
             <a-entity   id="cheese_button"
                         class="clickable"
                         position= "-0.7 0.55 0.7"
-                        create-cheese-component=""
+                        create-topping-component=""
                         geometry="primitive:cylinder; radius:0.1; height:0.05;"
                         material="color:#ffd867;">
             </a-entity>
             <a-entity   id="pepperoni_button"
                         class="clickable"
                         position= "0.7 0.55 0.7"
-                        create-cheese-component=""
+                        create-topping-component=""
                         geometry="primitive:cylinder; radius:0.1; height:0.05;"
                         material="color:#ca2521;">
             </a-entity>
