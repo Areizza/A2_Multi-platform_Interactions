@@ -17,7 +17,7 @@ AFRAME.registerComponent('create-cheese-component', {
             //el = element or entity
             //object3D = three.js 3D geometry object
             //scale = three.js vector that represents scale
-            Context_AF.el.object3D.scale.set(1.02, 1.02, 1.02);
+            Context_AF.el.object3D.scale.set(1.08, 1.08, 1.08);
         });
 
         Context_AF.el.addEventListener('mouseleave', function(event) {

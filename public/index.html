@@ -12,6 +12,8 @@
             <a-assets>
                 <!-- crossorigin allows loading from other domains, always use response type on .glb and sound files -->
                 <a-asset-item id="helmet" crossorigin="anonymous" response-type="arraybuffer" src="assets/models/DamagedHelmet.glb"></a-asset-item>
+                <img id="kitchen_front" src="assets/textures/kitchen1_test.jpg" crossorigin="anonymous">
+                <img id="kitchen_floor" src="assets/textures/kitchenFloor.png" crossorigin="anonymous">
             </a-assets>
 
             <!--#region ENVIRONMENT  -->
@@ -20,7 +22,7 @@
                         rotation = "-90 0 0"
                         scale = "1 1 1"
                         geometry="primitive:plane; width:10; height:10;"
-                        material="color:#7BC8A4">
+                        material="src:#kitchen_floor;">
             </a-entity>
             <a-entity   id="ceiling"
                         position= "0 3.5 0"
@@ -58,32 +60,33 @@
                         material="color:yellow; flatShading:true; emissive:color:white; emissiveIntensity:0.5">
             </a-entity>
             <a-entity   id="wall_right"
-                        position= "5 0 0"
+                        position= "5 1.75 0"
                         rotation = "0 -90 0"
                         scale = "1 1 1"
-                        geometry="primitive:plane; width:10; height:7;"
+                        geometry="primitive:plane; width:10; height:3.5;"
                         material="color:blue">
             </a-entity>
             <a-entity   id="wall_left"
-                        position= "-5 0 0"
+                        position= "-5 1.75 0"
                         rotation = "0 90 0"
                         scale = "1 1 1"
-                        geometry="primitive:plane; width:10; height:7;"
-                        material="color:blue"y>
+                        geometry="primitive:plane; width:10; height:3.5;"
+                        material="color:blue"
+                        class="collidable">
             </a-entity>
             <a-entity   id="wall_back"
-                        position= "0 0 5"
+                        position= "0 1.75 5"
                         rotation = "0 180 0"
                         scale = "1 1 1"
-                        geometry="primitive:plane; width:10; height:7;"
+                        geometry="primitive:plane; width:10; height:3.5;"
                         material="color:blue">
             </a-entity>
             <a-entity   id="wall_front"
-                        position= "0 0 -5"
+                        position= "0 1.75 -5"
                         rotation = "0 0 0"
                         scale = "1 1 1"
-                        geometry="primitive:box; width:10; height:7; depth:0.001;"
-                        material="color:blue">
+                        geometry="primitive:plane; width:10; height:3.5;"
+                        material="src:#kitchen_front; flatShading: true; shader:flat;">
             </a-entity>
 
             <a-entity   id="table"
@@ -94,23 +97,23 @@
 
             <!--#region OVEN -->
             <a-entity   id="oven"
-                        position= "0 0 -4.5"
-                        geometry="primitive:box; width:3; height:4; depth:1;"
+                        position= "0 1 -4.5"
+                        geometry="primitive:box; width:3; height:2; depth:1;"
                         material="color:#808080; metalness:0.3">
             </a-entity>
             <a-entity   id="oven_top"
                         position= "0 2 -4.2"
-                        geometry="primitive:box; width:3.5; height:0.05; depth:1;"
+                        geometry="primitive:box; width:3.5; height:0.05; depth:1.6;"
                         material="color:#808080; metalness:0.3">
             </a-entity>
             <a-entity   id="oven_middle"
                         position= "0 1.5 -4.2"
-                        geometry="primitive:box; width:3.5; height:0.05; depth:1;"
+                        geometry="primitive:box; width:3.5; height:0.05; depth:1.6;"
                         material="color:#808080; metalness:0.3">
             </a-entity>
             <a-entity   id="oven_base"
                         position= "0 0.1 -4.2"
-                        geometry="primitive:box; width:3.5; height:0.2; depth:1;"
+                        geometry="primitive:box; width:3.5; height:0.2; depth:1.6;"
                         material="color:#808080; metalness:0.3">
             </a-entity>
             <a-entity   id="fire"
@@ -126,13 +129,21 @@
                         position= "-2 0.5 0"
                         geometry="primitive:box; width:1; height:0.1; depth:1;"
                         material="color:black;">
+                        <a-entity   id="trash_label"
+                                    geometry="primitive:plane; width:1; height:0.3;"
+                                    position="0 0.06 0"            
+                                    rotation="-90 0 0"
+                                    text="font:roboto; size: 20; value: TRASH; align:center; wrapCount:10;"
+                                    material="color:#2c2c2c;">
+                        </a-entity>
             </a-entity>           
             <a-entity   id="plate"
                         class="clickable"
                         position= "0 0.5 0"
                         create-cow-component=""
                         geometry="primitive:cylinder; radius:0.8; height:0.03;"
-                        material="color:white;">
+                        material="color:white;"
+                        hoverable grabbable stretchable draggable dropppable>
 
                         <a-entity   id="pizza"
                                     class="clickable"
@@ -165,13 +176,13 @@
             </a-entity> -->
 
 
-            <!-- camera and lights, add cursor component to camera-->
-            <a-entity position="0 1.2 2" camera look-controls>
+            <!-- player perspective, add cursor component to camera-->
+            <a-entity position="0 1.2 2" camera look-controls wasd-controls collider-check>
                 <!-- cursor allows us to interact with objects; add raycaster and set constraints to increase performance -->
-                <!-- wasd turned off to limit movement-->
                 <a-entity   cursor="rayOrigin:mouse"
                             raycaster="far:20; interval:100; objects:.clickable">
                 </a-entity>
+                <a-entity raycaster="objects: .collidable" position="0 1.2 2" rotation="90 0 0"></a-entity>
             </a-entity>
 
         </a-scene>
