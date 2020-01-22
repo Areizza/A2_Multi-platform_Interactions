@@ -79,7 +79,7 @@ AFRAME.registerComponent('create-topping-component', {
         pepperoniElem.setAttribute('material', 'color:#ca2521;'); //set material/texture
 
         //random position on cheese/pizza area
-        pepperoniElem.setAttribute('position', {x:(Math.random() * 0.9) - 0.45, y: 0.63 + (counter * 0.014), z:(Math.random() * 0.9) - 0.45});
+        pepperoniElem.setAttribute('position', {x:(Math.random() * 0.9) - 0.45, y: 0.63 + (counter * 0.011), z:(Math.random() * 0.9) - 0.45});
 
         //random scale
         const randScale = 0.8 + (Math.random() * 0.3);
