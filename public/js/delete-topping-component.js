@@ -9,7 +9,16 @@ AFRAME.registerComponent('delete-topping-component', {
         //add event listener for "click" event on whatever entity has this component
         Context_AF.el.addEventListener('click', function(event) {
             console.log("DELETE ME");
-            Context_AF.deleteTopping();
+            
+            //deletes whole stack of cheese
+            if(Context_AF.el.classList.contains("cheese")) {
+                console.log('AHAHAHA');
+                Context_AF.deleteCheese();
+                //window.cheeseCount = 0;
+            }
+            else {
+                Context_AF.deleteTopping();
+            }
         });
 
         //make button larger on hover
@@ -25,6 +34,14 @@ AFRAME.registerComponent('delete-topping-component', {
     deleteTopping: function() {
         const Context_AF = this; //be careful of "this"!
         Context_AF.el.parentNode.removeChild( Context_AF.el ); //only a parent can delete you
+    },
+
+    deleteCheese: function() {
+        const Context_AF = this; //be careful of "this"!
+        //delete all the elements with class "cheese"
+        Context_AF.el.parentNode.querySelectorAll(".cheese").forEach(function(a){
+                a.remove()
+            });
     }
 
 });

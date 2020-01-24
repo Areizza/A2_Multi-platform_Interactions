@@ -16,8 +16,8 @@ AFRAME.registerComponent('create-topping-component', {
             console.log(window.cheeseCount);
             console.log(Context_AF.el.id);
 
-            //cheese event
-            if(Context_AF.el.id=="cheese_button") {
+            //cheese event (limit to maximum stack of 10)
+            if(Context_AF.el.id=="cheese_button" && window.cheeseCount < 10) {
                 window.cheeseCount++;
                 Context_AF.createCheese(counter);
             }
@@ -42,14 +42,19 @@ AFRAME.registerComponent('create-topping-component', {
         })
     },
 
+    
+    heightRemoval: function(counter) {
+        counter -= 1;
+    },
+
     //custom function for adding a layer of cheese on the pizza
-    createCheese: function(counter ) {
+    createCheese: function(counter) {
         const Context_AF = this; //be careful of "this"!
 
         //create an html element that makes the cheese
         let cheeseElem = document.createElement('a-entity'); //create element by code
-        cheeseElem.setAttribute('class', 'clickable');
-        cheeseElem.setAttribute('position', {x:0, y: 0.63 + (counter * 0.01), z:0 });
+        cheeseElem.setAttribute('class', 'clickable cheese');
+        cheeseElem.setAttribute('position', {x:0, y: 0.15 + (counter * 0.01), z:0 });
         cheeseElem.setAttribute('geometry', 'primitive:cylinder; radius:0.6; height:0.01;');
         cheeseElem.setAttribute('material', 'color:#ffd867;'); //set material/texture
 
@@ -61,10 +66,11 @@ AFRAME.registerComponent('create-topping-component', {
 
         // cheeseElem.setAttribute('rotation', {x:0, y:Math.random() * 360.0, z:0}); //random y rotation
 
-        // cheeseElem.setAttribute('delete-cow-component', "");
+        cheeseElem.setAttribute('delete-topping-component', "");
+        cheeseElem.setAttribute('onClick', Context_AF.heightRemoval(counter));
 
         //attach to scene
-        let scene = document.querySelector('a-scene');
+        let scene = document.querySelector('a-scene').querySelector('#plate');
         scene.appendChild(cheeseElem);
     },
 
