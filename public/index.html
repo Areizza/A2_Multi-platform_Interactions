@@ -12,7 +12,11 @@
             <!-- asset management system helps to cache resources for reuse -->
             <a-assets>
                 <!-- crossorigin allows loading from other domains, always use response type on .glb and sound files -->
+                
+                <!-- kitchen bg edited from https://www.episodeinteractive.com/dcon/pv1_back_INT__BRISTOLS_KITCHEN___DAY.jpg -->
                 <img id="kitchen_front" src="assets/textures/kitchen1_test.jpg" crossorigin="anonymous">
+
+
                 <img id="kitchen_floor" src="assets/textures/kitchenFloor.png" crossorigin="anonymous">
 
                 <audio id="puc" src="assets/sounds/Puc.wav" preload="auto"></audio>
@@ -34,7 +38,7 @@
                         rotation = "90 0 0"
                         scale = "1 1 1"
                         geometry="primitive:plane; width:10; height:10;"
-                        material="color:#7BC8A4; flatShading:true;">
+                        material="color:#a4a9bb; flatShading:true;">
             </a-entity>
             <a-entity light="type: ambient; color: #CCC; intensity: 0.25"></a-entity>
             <a-entity   id="light_left"
@@ -70,22 +74,21 @@
                         rotation = "0 -90 0"
                         scale = "1 1 1"
                         geometry="primitive:plane; width:10; height:3.5;"
-                        material="color:blue">
+                        material="src:#kitchen_front; flatShading: true; shader:flat;">
             </a-entity>
             <a-entity   id="wall_left"
                         position= "-5 1.75 0"
                         rotation = "0 90 0"
                         scale = "1 1 1"
                         geometry="primitive:plane; width:10; height:3.5;"
-                        material="color:blue"
-                        class="collidable">
+                        material="src:#kitchen_front; flatShading: true; shader:flat;">
             </a-entity>
             <a-entity   id="wall_back"
                         position= "0 1.75 5"
                         rotation = "0 180 0"
                         scale = "1 1 1"
                         geometry="primitive:plane; width:10; height:3.5;"
-                        material="color:blue">
+                        material="src:#kitchen_front; flatShading: true; shader:flat;">
             </a-entity>
             <a-entity   id="wall_front"
                         position= "0 1.75 -5"
