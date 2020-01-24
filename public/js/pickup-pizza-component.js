@@ -2,11 +2,47 @@ AFRAME.registerComponent('pickup-pizza-component', {
     schema: {},
     init: function()  {
         const Context_AF = this; //this refers to "this" component, keep this context
+        // var lastIndex = -1;
+        // var COLORS = ['red', 'green', 'blue'];
+        const cursorPos = document.getElementById("cursor").object3D.getWorldPosition();
+        const cursorDir = document.getElementById("cursor").raycaster;
+        const cursor = document.getElementById("cursor");
+
+        let cursorx = event.clientX;
+        let cursory = event.clientY;
+
+        let interval;
 
 
         Context_AF.el.addEventListener('click', function(event) {
+            // lastIndex = (lastIndex + 1) % COLORS.length;
+            // this.setAttribute('material', 'color', COLORS[lastIndex]);
+
+            //Context_AF.el.setAttribute('position', {x: cursorx, y: cursory, z:0 })
+
+            //from: https://glitch.com/edit/#!/aframe-mouse-to-world
+
+            //cursor.worldToLocalPosition(vector);
+            let mouse = new THREE.Vector2()
+            let camera = AFRAME.scenes[0].camera
+            let screen = document.querySelector('body').getBoundingClientRect()
+            mouse.x = ( (event.clientX - screen.left) / screen.width ) * 2 - 1
+            mouse.y = - ( (event.clientY - screen.top) / screen.height ) * 2 + 1
+            let vector = new THREE.Vector3( mouse.x, mouse.y, -1 ).unproject( camera );
+            //let vectorTest = 
+
+            console.log("cursor is at: " + JSON.stringify(cursor.worldToLocalPosition(vector)));
+            Context_AF.el.setAttribute('position', vector);
+            console.log("object is at: " + JSON.stringify(Context_AF.el.getAttribute('position')));
+
+            //interval = setInterval(100);
+
             Context_AF.pickUp();
         });
+
+        // Context_AF.el.addEventListener('mouseup', function(e) { 
+        //     clearInterval(interval);
+        // });
 
         //make button larger on hover
         Context_AF.el.addEventListener('mouseenter', function(event) {
@@ -24,6 +60,8 @@ AFRAME.registerComponent('pickup-pizza-component', {
     pickUp : function(){
         const Context_AF = this;
 
+        
+
         //get the cursor position
         const cursor = document.getElementById("cursor");
         const camera = document.getElementById("camera");
@@ -39,7 +77,7 @@ AFRAME.registerComponent('pickup-pizza-component', {
     },
 
     putTrash: function() {
-
+        
     },
 
     putOven: function() {
