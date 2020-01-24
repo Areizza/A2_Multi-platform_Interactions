@@ -135,11 +135,13 @@ AFRAME.registerComponent('create-topping-component', {
     //reset and create a new pizza by removing all the previous toppings
     createNew: function() {
         const Context_AF = this;
+        const pizza = document.getElementById("pizza");
 
         //delete all the elements with class "topping"
         Context_AF.el.parentNode.querySelectorAll(".topping").forEach(function(a){
-                a.remove()
-            });
+            a.remove()
+        });
 
+        pizza.setAttribute('material', 'color', '#bf8d3c');
     }
 });

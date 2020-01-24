@@ -31,13 +31,14 @@ AFRAME.registerComponent('pickup-pizza-component', {
             let vector = new THREE.Vector3( mouse.x, mouse.y, -1 ).unproject( camera );
             //let vectorTest = 
 
-            console.log("cursor is at: " + JSON.stringify(cursor.worldToLocalPosition(vector)));
-            Context_AF.el.setAttribute('position', vector);
+            console.log("cursor is at: " + JSON.stringify(vector));
+            //Context_AF.el.setAttribute('position', vector); //moves it weirdly
             console.log("object is at: " + JSON.stringify(Context_AF.el.getAttribute('position')));
 
             //interval = setInterval(100);
 
-            Context_AF.pickUp();
+            //Context_AF.pickUp();
+            Context_AF.putOven();
         });
 
         // Context_AF.el.addEventListener('mouseup', function(e) { 
@@ -60,8 +61,6 @@ AFRAME.registerComponent('pickup-pizza-component', {
     pickUp : function(){
         const Context_AF = this;
 
-        
-
         //get the cursor position
         const cursor = document.getElementById("cursor");
         const camera = document.getElementById("camera");
@@ -77,11 +76,20 @@ AFRAME.registerComponent('pickup-pizza-component', {
     },
 
     putTrash: function() {
-        
+
     },
 
     putOven: function() {
-        
+        const Context_AF = this;
+        //burn the pizza
+
+        const food = document.getElementById("pizza").getElementsByTagName("a-entity");
+
+        for(var i = 0; i < food.length; i++) {
+            food[i].setAttribute('material', 'color', '#000');
+        }
+
+        Context_AF.el.setAttribute('material', 'color', '#000');
     }
 
 });
