@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Cylinder and Plane</title>
+        <title>Pizza Maker</title>
         <script src="https://aframe.io/releases/1.0.3/aframe.min.js"></script>
         <script src="js/create-topping-component.js"></script>
         <script src="js/delete-topping-component.js"></script>
@@ -11,7 +11,6 @@
             <!-- asset management system helps to cache resources for reuse -->
             <a-assets>
                 <!-- crossorigin allows loading from other domains, always use response type on .glb and sound files -->
-                <a-asset-item id="helmet" crossorigin="anonymous" response-type="arraybuffer" src="assets/models/DamagedHelmet.glb"></a-asset-item>
                 <img id="kitchen_front" src="assets/textures/kitchen1_test.jpg" crossorigin="anonymous">
                 <img id="kitchen_floor" src="assets/textures/kitchenFloor.png" crossorigin="anonymous">
             </a-assets>
@@ -154,27 +153,27 @@
                         </a-entity>
             </a-entity>
 
+            <a-entity   id="reset_button"
+                        class="clickable"
+                        position= "-1.0 0.55 0.7"
+                        create-topping-component=""
+                        geometry="primitive:cylinder; radius:0.1; height:0.05;"
+                        material="color:#5b91f4;">
+            </a-entity>
             <a-entity   id="cheese_button"
                         class="clickable"
-                        position= "-0.7 0.55 0.7"
+                        position= "1.0 0.55 0.3"
                         create-topping-component=""
                         geometry="primitive:cylinder; radius:0.1; height:0.05;"
                         material="color:#ffd867;">
             </a-entity>
             <a-entity   id="pepperoni_button"
                         class="clickable"
-                        position= "0.7 0.55 0.7"
+                        position= "1.0 0.55 0.7"
                         create-topping-component=""
                         geometry="primitive:cylinder; radius:0.1; height:0.05;"
                         material="color:#ca2521;">
             </a-entity>
-
-
-            <!-- <a-entity   id="damaged_helmet"
-                        gltf-model="#helmet"
-                        position="0 1 -2">
-            </a-entity> -->
-
 
             <!-- player perspective, add cursor component to camera-->
             <a-entity position="0 1.2 2" camera look-controls wasd-controls collider-check>

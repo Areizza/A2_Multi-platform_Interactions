@@ -17,14 +17,23 @@ AFRAME.registerComponent('create-topping-component', {
             console.log(Context_AF.el.id);
 
             //cheese event
-            if(Context_AF.el.id=="cheese_button") {
+            if(Context_AF.el.id=="cheese_button" && window.cheeseCount < 10) {
                 window.cheeseCount++;
+
                 Context_AF.createCheese(counter);
             }
 
             //pepperoni event
             if(Context_AF.el.id=="pepperoni_button") {
                 Context_AF.createPepperoni(window.cheeseCount);
+            }
+
+            //new pizza
+            if(Context_AF.el.id=="reset_button"){
+                counter = 0;
+                window.cheeseCount = 0;
+
+                Context_AF.createNew();
             }
             
         });
@@ -48,7 +57,7 @@ AFRAME.registerComponent('create-topping-component', {
 
         //create an html element that makes the cheese
         let cheeseElem = document.createElement('a-entity'); //create element by code
-        cheeseElem.setAttribute('class', 'clickable');
+        cheeseElem.setAttribute('class', 'topping');
         cheeseElem.setAttribute('position', {x:0, y: 0.63 + (counter * 0.01), z:0 });
         cheeseElem.setAttribute('geometry', 'primitive:cylinder; radius:0.6; height:0.01;');
         cheeseElem.setAttribute('material', 'color:#ffd867;'); //set material/texture
@@ -74,7 +83,7 @@ AFRAME.registerComponent('create-topping-component', {
 
         //create an html element that makes the pepperoni
         let pepperoniElem = document.createElement('a-entity'); //create element by code
-        pepperoniElem.setAttribute('class', 'clickable');
+        pepperoniElem.setAttribute('class', 'clickable topping');
         pepperoniElem.setAttribute('geometry', 'primitive:cylinder; radius:0.1; height:0.01;');
         pepperoniElem.setAttribute('material', 'color:#ca2521;'); //set material/texture
 
@@ -92,4 +101,14 @@ AFRAME.registerComponent('create-topping-component', {
         let scene = document.querySelector('a-scene');
         scene.appendChild(pepperoniElem);
     },
+
+    createNew: function() {
+        const Context_AF = this;
+
+        let toppings = document.querySelector('a-scene').classList.contains("topping");
+
+        while(toppings.length > 0){
+            toppings[0].parentNode.removeChild(toppings[0]);
+        }
+    }
 });
