@@ -23,22 +23,27 @@ AFRAME.registerComponent('pickup-pizza-component', {
             //from: https://glitch.com/edit/#!/aframe-mouse-to-world
 
             //cursor.worldToLocalPosition(vector);
-            let mouse = new THREE.Vector2()
-            let camera = AFRAME.scenes[0].camera
-            let screen = document.querySelector('body').getBoundingClientRect()
-            mouse.x = ( (event.clientX - screen.left) / screen.width ) * 2 - 1
-            mouse.y = - ( (event.clientY - screen.top) / screen.height ) * 2 + 1
-            let vector = new THREE.Vector3( mouse.x, mouse.y, -1 ).unproject( camera );
-            //let vectorTest = 
+            // let mouse = new THREE.Vector2()
+            // let camera = AFRAME.scenes[0].camera
+            // let screen = document.querySelector('body').getBoundingClientRect()
+            // mouse.x = ( (event.clientX - screen.left) / screen.width ) * 2 - 1
+            // mouse.y = - ( (event.clientY - screen.top) / screen.height ) * 2 + 1
+            // let vector = new THREE.Vector3( mouse.x, mouse.y, -1 ).unproject( camera );
+            // //let vectorTest = 
 
-            console.log("cursor is at: " + JSON.stringify(vector));
-            //Context_AF.el.setAttribute('position', vector); //moves it weirdly
-            console.log("object is at: " + JSON.stringify(Context_AF.el.getAttribute('position')));
+            // console.log("cursor is at: " + JSON.stringify(vector));
+            // //Context_AF.el.setAttribute('position', vector); //moves it weirdly
+            // console.log("object is at: " + JSON.stringify(Context_AF.el.getAttribute('position')));
 
             //interval = setInterval(100);
 
             //Context_AF.pickUp();
-            Context_AF.putOven();
+
+            const oven = document.getElementById("oven");
+            oven.addEventListener('click', function(event) {
+                Context_AF.putOven(); ///not to nest event listeners!
+                //but i want to click the pizza, keep it enlarged, and then click oven to burn it
+            });
         });
 
         // Context_AF.el.addEventListener('mouseup', function(e) { 
@@ -81,15 +86,15 @@ AFRAME.registerComponent('pickup-pizza-component', {
 
     putOven: function() {
         const Context_AF = this;
-        //burn the pizza
 
+        //burn the pizza
         const food = document.getElementById("pizza").getElementsByTagName("a-entity");
 
         for(var i = 0; i < food.length; i++) {
-            food[i].setAttribute('material', 'color', '#000');
+            food[i].setAttribute('material', 'color: #000');
         }
 
-        Context_AF.el.setAttribute('material', 'color', '#000');
+        Context_AF.el.setAttribute('material', 'color: #000; roughness:0.5');
     }
 
 });

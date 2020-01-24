@@ -142,6 +142,7 @@ AFRAME.registerComponent('create-topping-component', {
             a.remove()
         });
 
-        pizza.setAttribute('material', 'color', '#bf8d3c');
+        pizza.setAttribute('material', 'color: #bf8d3c; roughness:0.8');
+        //update so that click trash to clear all and use create new to generate a new pizza crust onto plate
     }
 });
