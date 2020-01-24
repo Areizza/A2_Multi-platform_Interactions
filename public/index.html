@@ -5,6 +5,7 @@
         <script src="https://aframe.io/releases/1.0.3/aframe.min.js"></script>
         <script src="js/create-topping-component.js"></script>
         <script src="js/delete-topping-component.js"></script>
+        <script src="js/pickup-pizza-component.js"></script>
     </head>
     <body>
         <a-scene> 
@@ -13,6 +14,11 @@
                 <!-- crossorigin allows loading from other domains, always use response type on .glb and sound files -->
                 <img id="kitchen_front" src="assets/textures/kitchen1_test.jpg" crossorigin="anonymous">
                 <img id="kitchen_floor" src="assets/textures/kitchenFloor.png" crossorigin="anonymous">
+
+                <audio id="puc" src="assets/sounds/Puc.wav" preload="auto"></audio>
+                <audio id="blik" src="assets/sounds/Blik.wav" preload="auto"></audio>
+                <audio id="blop" src="assets/sounds/Blop.wav" preload="auto"></audio>
+                <audio id="wet" src="assets/sounds/Wet.wav" preload="auto"></audio>
             </a-assets>
 
             <!--#region ENVIRONMENT  -->
@@ -42,7 +48,8 @@
             </a-entity>
             <a-entity   id="light_center"
                         light="type:point; intensity:0.5;"
-                        position="0 1 0">
+                        position="0 1 0"
+                        sound="src: #puc">
             </a-entity>
             <a-entity   id="lightbulb_center"
                         position= "0 3.25 0"
@@ -141,15 +148,15 @@
                         position= "0 0.5 0"
                         create-cow-component=""
                         geometry="primitive:cylinder; radius:0.8; height:0.03;"
-                        material="color:white;"
-                        hoverable grabbable stretchable draggable dropppable>
+                        material="color:white;">
 
                         <a-entity   id="pizza"
                                     class="clickable"
                                     position= "0 0.1 0"
                                     create-cow-component=""
                                     geometry="primitive:cylinder; radius:0.7; height:0.05;"
-                                    material="color:#bf8d3c; roughness:0.8;">
+                                    material="color:#bf8d3c; roughness:0.8;"
+                                    pickup-pizza-component="">
                         </a-entity>
             </a-entity>
 
@@ -158,30 +165,41 @@
                         position= "-1.0 0.55 0.7"
                         create-topping-component=""
                         geometry="primitive:cylinder; radius:0.1; height:0.05;"
-                        material="color:#5b91f4;">
+                        material="color:#5b91f4;"
+                        sound="src: #puc; on: click">
+            </a-entity>
+            <a-entity   id="sauce_button"
+                        class="clickable"
+                        position= "1.0 0.55 -0.1"
+                        create-topping-component=""
+                        geometry="primitive:cylinder; radius:0.1; height:0.05;"
+                        material="color:#b21807;"
+                        sound="src: #wet; on: click">
             </a-entity>
             <a-entity   id="cheese_button"
                         class="clickable"
                         position= "1.0 0.55 0.3"
                         create-topping-component=""
                         geometry="primitive:cylinder; radius:0.1; height:0.05;"
-                        material="color:#ffd867;">
+                        material="color:#ffd867;"
+                        sound="src: #blop; on: click">
             </a-entity>
             <a-entity   id="pepperoni_button"
                         class="clickable"
                         position= "1.0 0.55 0.7"
                         create-topping-component=""
                         geometry="primitive:cylinder; radius:0.1; height:0.05;"
-                        material="color:#ca2521;">
+                        material="color:#ca2521;"
+                        sound="src: #blik; on: click">
             </a-entity>
 
             <!-- player perspective, add cursor component to camera-->
-            <a-entity position="0 1.2 2" camera look-controls wasd-controls collider-check>
+            <a-entity id="camera" position="0 1.2 2" camera look-controls wasd-controls collider-check>
                 <!-- cursor allows us to interact with objects; add raycaster and set constraints to increase performance -->
-                <a-entity   cursor="rayOrigin:mouse"
+                <a-entity   id="cursor"
+                            cursor="rayOrigin:mouse"
                             raycaster="far:20; interval:100; objects:.clickable">
                 </a-entity>
-                <a-entity raycaster="objects: .collidable" position="0 1.2 2" rotation="90 0 0"></a-entity>
             </a-entity>
 
         </a-scene>

@@ -24,6 +24,11 @@ AFRAME.registerComponent('delete-topping-component', {
 
     deleteTopping: function() {
         const Context_AF = this; //be careful of "this"!
+
+        //center light will play the removal sound
+        let audio = document.getElementById("light_center");
+        audio.components.sound.playSound();
+        
         Context_AF.el.parentNode.removeChild( Context_AF.el ); //only a parent can delete you
     }
 
