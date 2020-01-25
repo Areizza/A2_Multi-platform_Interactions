@@ -5,7 +5,8 @@
         <script src="https://aframe.io/releases/1.0.3/aframe.min.js"></script>
         <script src="js/create-topping-component.js"></script>
         <script src="js/delete-topping-component.js"></script>
-        <script src="js/pickup-pizza-component.js"></script>
+        <script src="js/burn-pizza-component.js"></script>
+        <script src="js/restore-pizza-component.js"></script>
     </head>
     <body>
         <a-scene> 
@@ -14,15 +15,19 @@
                 <!-- crossorigin allows loading from other domains, always use response type on .glb and sound files -->
                 
                 <!-- kitchen bg edited from https://www.episodeinteractive.com/dcon/pv1_back_INT__BRISTOLS_KITCHEN___DAY.jpg -->
-                <img id="kitchen_front" src="assets/textures/kitchen1_test.jpg" crossorigin="anonymous">
+                <img id="kitchen_front" src="assets/textures/kitchenWalls_front.jpg" crossorigin="anonymous">
+                <img id="kitchen_walls" src="assets/textures/kitchenWalls.jpg" crossorigin="anonymous">
 
-
+                <!-- floor made in photoshop -->
                 <img id="kitchen_floor" src="assets/textures/kitchenFloor.png" crossorigin="anonymous">
 
-                <audio id="puc" src="assets/sounds/Puc.wav" preload="auto"></audio>
-                <audio id="blik" src="assets/sounds/Blik.wav" preload="auto"></audio>
-                <audio id="blop" src="assets/sounds/Blop.wav" preload="auto"></audio>
-                <audio id="wet" src="assets/sounds/Wet.wav" preload="auto"></audio>
+                <!-- audio files I recorded -->
+                <audio id="puc" crossorigin="anonymous" response-type="arraybuffer" src="assets/sounds/Puc.wav" preload="auto"></audio>
+                <audio id="blik" crossorigin="anonymous" response-type="arraybuffer" src="assets/sounds/Blik.wav" preload="auto"></audio>
+                <audio id="blop" crossorigin="anonymous" response-type="arraybuffer" src="assets/sounds/Blop.wav" preload="auto"></audio>
+                <audio id="wet" crossorigin="anonymous" response-type="arraybuffer" src="assets/sounds/Wet.wav" preload="auto"></audio>
+                <audio id="raa" crossorigin="anonymous" response-type="arraybuffer" src="assets/sounds/Raa.wav" preload="auto"></audio>
+                <audio id="beep" crossorigin="anonymous" response-type="arraybuffer" src="assets/sounds/Beep.wav" preload="auto"></audio>
             </a-assets>
 
             <!--#region ENVIRONMENT  -->
@@ -74,21 +79,21 @@
                         rotation = "0 -90 0"
                         scale = "1 1 1"
                         geometry="primitive:plane; width:10; height:3.5;"
-                        material="src:#kitchen_front; flatShading: true; shader:flat;">
+                        material="src:#kitchen_walls; flatShading: true; shader:flat;">
             </a-entity>
             <a-entity   id="wall_left"
                         position= "-5 1.75 0"
                         rotation = "0 90 0"
                         scale = "1 1 1"
                         geometry="primitive:plane; width:10; height:3.5;"
-                        material="src:#kitchen_front; flatShading: true; shader:flat;">
+                        material="src:#kitchen_walls; flatShading: true; shader:flat;">
             </a-entity>
             <a-entity   id="wall_back"
                         position= "0 1.75 5"
                         rotation = "0 180 0"
                         scale = "1 1 1"
                         geometry="primitive:plane; width:10; height:3.5;"
-                        material="src:#kitchen_front; flatShading: true; shader:flat;">
+                        material="src:#kitchen_walls; flatShading: true; shader:flat;">
             </a-entity>
             <a-entity   id="wall_front"
                         position= "0 1.75 -5"
@@ -100,7 +105,7 @@
 
             <a-entity   id="table"
                         geometry="primitive:box; width:6; height:1; depth:2;"
-                        material="color:#c19a6b;">
+                        material="color:#a3463e;">
             </a-entity>
             <!--#endregion -->
 
@@ -109,36 +114,40 @@
                         position= "0 1 -4.5"
                         geometry="primitive:box; width:3; height:2; depth:1;"
                         material="color:#808080; metalness:0.3"
-                        pickup-pizza-component="">
-            </a-entity>
-            <a-entity   id="oven_top"
-                        position= "0 2 -4.2"
-                        geometry="primitive:box; width:3.5; height:0.05; depth:1.6;"
-                        material="color:#808080; metalness:0.3">
-            </a-entity>
-            <a-entity   id="oven_middle"
-                        position= "0 1.5 -4.2"
-                        geometry="primitive:box; width:3.5; height:0.05; depth:1.6;"
-                        material="color:#808080; metalness:0.3">
+                        burn-pizza-component=""
+                        sound="src: #raa; on: click; volume: 2;">
+                <a-entity   id="oven_top"
+                            position= "0 1 0"
+                            geometry="primitive:box; width:3.5; height:0.05; depth:1.6;"
+                            material="color:#808080; metalness:0.3">
+                </a-entity>
+                <a-entity   id="oven_middle"
+                            position= "0 0.4 0"
+                            geometry="primitive:box; width:3.5; height:0.05; depth:1.6;"
+                            material="color:#808080; metalness:0.3">
+                </a-entity>
+                <a-entity   id="fire"
+                            class="clickable"
+                            position= "0 -0.3 0.5"
+                            geometry="primitive:box; width:2; height:1; depth:0.03;"
+                            material="color:#e25822; emissive:red; emissiveIntensity:0.8;">
+                </a-entity>
             </a-entity>
             <a-entity   id="oven_base"
                         position= "0 0.1 -4.2"
                         geometry="primitive:box; width:3.5; height:0.2; depth:1.6;"
                         material="color:#808080; metalness:0.3">
             </a-entity>
-            <a-entity   id="fire"
-                        class="clickable"
-                        position= "0 0.7 -4"
-                        geometry="primitive:box; width:2; height:1; depth:0.03;"
-                        material="color:#e25822; emissive:red; emissiveIntensity:0.8;">
-            </a-entity>
+            
             <!-- #endregion -->
            
             <a-entity   id="trash"
                         class="clickable"
                         position= "-2 0.5 0"
                         geometry="primitive:box; width:1; height:0.1; depth:1;"
-                        material="color:black;">
+                        material="color:black;"
+                        create-topping-component=""
+                        sound="src: #puc; on: click">
                         <a-entity   id="trash_label"
                                     geometry="primitive:plane; width:1; height:0.3;"
                                     position="0 0.06 0"            
@@ -148,29 +157,26 @@
                         </a-entity>
             </a-entity>           
             <a-entity   id="plate"
-                        class="clickable"
                         position= "0 0.5 0"
-                        create-cow-component=""
                         geometry="primitive:cylinder; radius:0.8; height:0.03;"
                         material="color:white;">
 
                         <a-entity   id="pizza"
                                     class="clickable"
                                     position= "0 0.1 0"
-                                    create-cow-component=""
                                     geometry="primitive:cylinder; radius:0.7; height:0.05;"
                                     material="color:#bf8d3c; roughness:0.8;"
-                                    pickup-pizza-component="">
+                                    create-topping-component="">
                         </a-entity>
             </a-entity>
 
             <a-entity   id="reset_button"
                         class="clickable"
                         position= "-1.0 0.55 0.7"
-                        create-topping-component=""
+                        restore-pizza-component=""
                         geometry="primitive:cylinder; radius:0.1; height:0.05;"
                         material="color:#5b91f4;"
-                        sound="src: #puc; on: click">
+                        sound="src: #beep; on: click">
             </a-entity>
             <a-entity   id="sauce_button"
                         class="clickable"

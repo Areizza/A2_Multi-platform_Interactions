@@ -13,9 +13,9 @@ AFRAME.registerComponent('create-topping-component', {
 
         //add event listener for "click" event on whatever entity has this component
         Context_AF.el.addEventListener('click', function(event) {
-            console.log("clicked!!!!!!!! ");
-            console.log(window.cheeseCount);
-            console.log(Context_AF.el.id);
+            // console.log("clicked!!!!!!!! ");
+            // console.log(window.cheeseCount);
+            // console.log(Context_AF.el.id);
 
             //sauce event
             if(Context_AF.el.id=="sauce_button") {
@@ -35,7 +35,7 @@ AFRAME.registerComponent('create-topping-component', {
             }
 
             //new pizza
-            if(Context_AF.el.id=="reset_button"){
+            if(Context_AF.el.id=="trash"){
                 window.cheeseCount = 0;
 
                 Context_AF.createNew();
@@ -64,7 +64,7 @@ AFRAME.registerComponent('create-topping-component', {
 
         //create an html element that makes the sauce
         let sauceElem = document.createElement('a-entity'); //create element by code
-        sauceElem.setAttribute('class', 'clickable topping');
+        sauceElem.setAttribute('class', 'clickable topping sauce');
         sauceElem.setAttribute('geometry', 'primitive:cylinder; radius:0.6; height:0.01;');
         sauceElem.setAttribute('material', 'color:#b21807;'); //set material/texture
 
@@ -86,20 +86,10 @@ AFRAME.registerComponent('create-topping-component', {
 
         //create an html element that makes the cheese
         let cheeseElem = document.createElement('a-entity'); //create element by code
-        cheeseElem.setAttribute('class', 'topping');
+        cheeseElem.setAttribute('class', 'topping cheese');
         cheeseElem.setAttribute('position', {x:0, y: 0.027 + (counter * 0.01), z:0 });
         cheeseElem.setAttribute('geometry', 'primitive:cylinder; radius:0.6; height:0.01;');
         cheeseElem.setAttribute('material', 'color:#ffd867;'); //set material/texture
-
-        //random transforms
-        // cheeseElem.setAttribute('position', {x:(Math.random() * 6.0) - 3.0, y: 0, z:-4.0 - (Math.random() * 3.0)}); //random x around axis and random z behind button, above ground on y=0
-
-        // const randScale = 0.2 + (Math.random() * 0.8);
-        // cheeseElem.setAttribute('scale', {x:randScale, y:randScale, z:randScale}); //random scale
-
-        // cheeseElem.setAttribute('rotation', {x:0, y:Math.random() * 360.0, z:0}); //random y rotation
-
-        // cheeseElem.setAttribute('delete-cow-component', "");
 
         //attach to scene
         let scene = document.querySelector('a-scene').querySelector('#pizza');
@@ -112,7 +102,7 @@ AFRAME.registerComponent('create-topping-component', {
 
         //create an html element that makes the pepperoni
         let pepperoniElem = document.createElement('a-entity'); //create element by code
-        pepperoniElem.setAttribute('class', 'clickable topping');
+        pepperoniElem.setAttribute('class', 'clickable topping pepperoni');
         pepperoniElem.setAttribute('geometry', 'primitive:cylinder; radius:0.1; height:0.01;');
         pepperoniElem.setAttribute('material', 'color:#ca2521;'); //set material/texture
 
@@ -132,8 +122,8 @@ AFRAME.registerComponent('create-topping-component', {
         scene.appendChild(pepperoniElem);
     },
 
-    //reset and create a new pizza by removing all the previous toppings
-    createNew: function() {
+   //reset and create a new pizza by removing all the previous toppings
+   createNew: function() {
         const Context_AF = this;
         const pizza = document.getElementById("pizza");
 
