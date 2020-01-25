@@ -9,9 +9,6 @@ AFRAME.registerComponent('burn-pizza-component', {
         
         //make button larger on hover
         Context_AF.el.addEventListener('mouseenter', function(event) {
-            //el = element or entity
-            //object3D = three.js 3D geometry object
-            //scale = three.js vector that represents scale
             Context_AF.el.object3D.scale.set(1.08, 1.08, 1.08);
         });
 
@@ -20,6 +17,7 @@ AFRAME.registerComponent('burn-pizza-component', {
         })
     },
 
+    //function to "put the pizza into the fire" and burn it
     putOven: function() {
         const Context_AF = this;
 
@@ -27,10 +25,10 @@ AFRAME.registerComponent('burn-pizza-component', {
         const pizza = document.getElementById("pizza");
         const food = pizza.getElementsByTagName("a-entity");
 
+        //everything becomes black
         for(var i = 0; i < food.length; i++) {
             food[i].setAttribute('material', 'color: #000');
         }
-
         pizza.setAttribute('material', 'color: #000; roughness:0.5');
     }
 });

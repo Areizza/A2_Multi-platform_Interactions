@@ -8,7 +8,6 @@ AFRAME.registerComponent('delete-topping-component', {
 
         //add event listener for "click" event on whatever entity has this component
         Context_AF.el.addEventListener('click', function(event) {
-            console.log("DELETE ME");
             Context_AF.deleteTopping();
         });
 

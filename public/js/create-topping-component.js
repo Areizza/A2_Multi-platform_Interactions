@@ -13,9 +13,6 @@ AFRAME.registerComponent('create-topping-component', {
 
         //add event listener for "click" event on whatever entity has this component
         Context_AF.el.addEventListener('click', function(event) {
-            // console.log("clicked!!!!!!!! ");
-            // console.log(window.cheeseCount);
-            // console.log(Context_AF.el.id);
 
             //sauce event
             if(Context_AF.el.id=="sauce_button") {
@@ -34,6 +31,21 @@ AFRAME.registerComponent('create-topping-component', {
                 Context_AF.createPepperoni(window.cheeseCount);
             }
 
+            //green pepper event
+            if(Context_AF.el.id=="gpepper_button") {
+                Context_AF.createGPepper(window.cheeseCount);
+            }
+
+            //mushroom event
+            if(Context_AF.el.id=="mushroom_button") {
+                Context_AF.createMushroom(window.cheeseCount);
+            }
+
+            //olive event
+            if(Context_AF.el.id=="olive_button") {
+                Context_AF.createOlive(window.cheeseCount);
+            }
+
             //new pizza
             if(Context_AF.el.id=="trash"){
                 window.cheeseCount = 0;
@@ -42,14 +54,11 @@ AFRAME.registerComponent('create-topping-component', {
             }
 
             count++
-            console.log("There are currently: " + count + " toppings.");
+            //console.log("There are currently: " + count + " toppings.");
         });
 
         //make button larger on hover
         Context_AF.el.addEventListener('mouseenter', function(event) {
-            //el = element or entity
-            //object3D = three.js 3D geometry object
-            //scale = three.js vector that represents scale
             Context_AF.el.object3D.scale.set(1.08, 1.08, 1.08);
         });
 
@@ -103,11 +112,11 @@ AFRAME.registerComponent('create-topping-component', {
         //create an html element that makes the pepperoni
         let pepperoniElem = document.createElement('a-entity'); //create element by code
         pepperoniElem.setAttribute('class', 'clickable topping pepperoni');
-        pepperoniElem.setAttribute('geometry', 'primitive:cylinder; radius:0.1; height:0.01;');
+        pepperoniElem.setAttribute('geometry', 'primitive:cylinder; radius:0.1; height:0.02;');
         pepperoniElem.setAttribute('material', 'color:#ca2521;'); //set material/texture
 
         //random position on cheese/pizza area
-        pepperoniElem.setAttribute('position', {x:(Math.random() * 0.9) - 0.45, y: 0.027 + (counter * 0.011), z:(Math.random() * 0.9) - 0.45});
+        pepperoniElem.setAttribute('position', {x:Math.random() * (0.48 + 0.48) - 0.48, y: 0.027 + (counter * 0.011), z:Math.random() * (0.48 + 0.48) - 0.48});
 
         //random scale
         const randScale = 0.8 + (Math.random() * 0.3);
@@ -115,11 +124,98 @@ AFRAME.registerComponent('create-topping-component', {
 
         //can be deleted and plays sound on click
         pepperoniElem.setAttribute('delete-topping-component', "");
-        //pepperoniElem.setAttribute('sound', 'src: assets/sounds/Puc.wav; on: click');
 
         //attach to scene
         let scene = document.querySelector('a-scene').querySelector('#pizza');;
         scene.appendChild(pepperoniElem);
+    },
+
+    //custom function for adding green peppers onto the pizza
+    createGPepper: function(counter) {
+        const Context_AF = this; //be careful of "this"!
+
+        //create an html element that makes the green pepper
+        let gPepperElem = document.createElement('a-entity'); //create element by code
+        gPepperElem.setAttribute('class', 'clickable topping gpepper');
+        gPepperElem.setAttribute('geometry', 'primitive:box; width:0.05; height:0.05; depth:0.05;');
+        gPepperElem.setAttribute('material', 'color:#456c3b;'); //set material/texture
+
+        //random position on cheese/pizza area
+        gPepperElem.setAttribute('position', {x:Math.random() * (0.48 + 0.48) - 0.48, y: 0.027 + (counter * 0.011), z:Math.random() * (0.48 + 0.48) - 0.48});
+
+        //random scale
+        const randScale = 0.8 + (Math.random() * 0.3);
+        gPepperElem.setAttribute('scale', {x:randScale, y:randScale, z:randScale});
+
+        //can be deleted and plays sound on click
+        gPepperElem.setAttribute('delete-topping-component', "");
+
+        //attach to scene
+        let scene = document.querySelector('a-scene').querySelector('#pizza');;
+        scene.appendChild(gPepperElem);
+    },
+
+    //custom function for adding mushrooms onto the pizza
+    createMushroom: function(counter) {
+        const Context_AF = this; //be careful of "this"!
+
+        //create an html element that makes the green pepper
+        let mushroomElem = document.createElement('a-entity'); //create element by code
+        mushroomElem.setAttribute('class', 'clickable topping mushroom');
+        mushroomElem.setAttribute('geometry', 'primitive:cylinder; radius:0.08; height:0.02;');
+        mushroomElem.setAttribute('material', 'color:#dbccca;');
+
+        //random position on cheese/pizza area
+        mushroomElem.setAttribute('position', {x:Math.random() * (0.48 + 0.48) - 0.48, y: 0.027 + (counter * 0.011), z:Math.random() * (0.48 + 0.48) - 0.48});
+
+        //random scale
+        const randScale = 0.8 + (Math.random() * 0.3);
+        mushroomElem.setAttribute('scale', {x:randScale, y:randScale, z:randScale});
+
+        //can be deleted and plays sound on click
+        mushroomElem.setAttribute('delete-topping-component', "");
+
+        //mushroom end
+        let mushroomEndElem = document.createElement('a-entity');
+        mushroomEndElem.setAttribute('class', 'topping mushroom');
+        mushroomEndElem.setAttribute('geometry', 'primitive:box; width:0.1; height:0.02; depth:0.05');
+        mushroomEndElem.setAttribute('material', 'color:#dbccca;');
+        mushroomEndElem.setAttribute('position', {x:0, y: 0, z: -0.08});
+
+        //attach mushroom end to mushroom
+        mushroomElem.append(mushroomEndElem);
+
+        //rotate the full mushroom randomly
+        mushroomElem.setAttribute('rotation', {x:0, y: Math.random() * 360.0, z:0});
+
+        //attach to scene
+        let scene = document.querySelector('a-scene').querySelector('#pizza');;
+        scene.appendChild(mushroomElem);
+    },
+
+    //custom function for adding black olives onto the pizza
+    createOlive: function(counter) {
+        const Context_AF = this; //be careful of "this"!
+
+        //create an html element that makes the green pepper
+        let oliveElem = document.createElement('a-entity'); //create element by code
+        oliveElem.setAttribute('class', 'clickable topping olive');
+        oliveElem.setAttribute('geometry', 'primitive:sphere; radius:0.035;');
+        oliveElem.setAttribute('material', 'color:#3b3c36;'); //set material/texture
+
+        //random position on cheese/pizza area
+        oliveElem.setAttribute('position', {x:Math.random() * (0.48 + 0.48) - 0.48, y: 0.027 + (counter * 0.011), z:Math.random() * (0.48 + 0.48) - 0.48});
+
+        //random scale
+        const randScale = 0.8 + (Math.random() * 0.3);
+        oliveElem.setAttribute('scale', {x:randScale, y:randScale, z:randScale});
+
+        //can be deleted and plays sound on click
+        oliveElem.setAttribute('delete-topping-component', "");
+
+        //attach to scene
+        let scene = document.querySelector('a-scene').querySelector('#pizza');;
+        scene.appendChild(oliveElem);
     },
 
    //reset and create a new pizza by removing all the previous toppings
@@ -133,6 +229,5 @@ AFRAME.registerComponent('create-topping-component', {
         });
 
         pizza.setAttribute('material', 'color: #bf8d3c; roughness:0.8');
-        //update so that click trash to clear all and use create new to generate a new pizza crust onto plate
     }
 });

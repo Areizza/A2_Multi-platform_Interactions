@@ -28,6 +28,11 @@
                 <audio id="wet" crossorigin="anonymous" response-type="arraybuffer" src="assets/sounds/Wet.wav" preload="auto"></audio>
                 <audio id="raa" crossorigin="anonymous" response-type="arraybuffer" src="assets/sounds/Raa.wav" preload="auto"></audio>
                 <audio id="beep" crossorigin="anonymous" response-type="arraybuffer" src="assets/sounds/Beep.wav" preload="auto"></audio>
+                <audio id="bop" crossorigin="anonymous" response-type="arraybuffer" src="assets/sounds/Bop.wav" preload="auto"></audio>
+                <audio id="plop" crossorigin="anonymous" response-type="arraybuffer" src="assets/sounds/Plop.wav" preload="auto"></audio>
+            
+                <!-- background music is the preview track of impressioni di ottobre from https://www.proudmusiclibrary.com/en/tag/italy -->
+                <audio id="ambiance" crossorigin="anonymous" response-type="arraybuffer" src="assets/sounds/impressioni_di_ottobre_Preview.mp3" preload="auto"></audio>
             </a-assets>
 
             <!--#region ENVIRONMENT  -->
@@ -43,7 +48,8 @@
                         rotation = "90 0 0"
                         scale = "1 1 1"
                         geometry="primitive:plane; width:10; height:10;"
-                        material="color:#a4a9bb; flatShading:true;">
+                        material="color:#a4a9bb; flatShading:true;"
+                        sound="src: #ambiance; volume: 0.3; autoplay: true; loop: true;">
             </a-entity>
             <a-entity light="type: ambient; color: #CCC; intensity: 0.25"></a-entity>
             <a-entity   id="light_left"
@@ -115,7 +121,7 @@
                         geometry="primitive:box; width:3; height:2; depth:1;"
                         material="color:#808080; metalness:0.3"
                         burn-pizza-component=""
-                        sound="src: #raa; on: click; volume: 2;">
+                        sound="src: #raa; on: click; volume: 2.5;">
                 <a-entity   id="oven_top"
                             position= "0 1 0"
                             geometry="primitive:box; width:3.5; height:0.05; depth:1.6;"
@@ -141,13 +147,14 @@
             
             <!-- #endregion -->
            
+            <!-- trash can -->
             <a-entity   id="trash"
                         class="clickable"
                         position= "-2 0.5 0"
                         geometry="primitive:box; width:1; height:0.1; depth:1;"
                         material="color:black;"
                         create-topping-component=""
-                        sound="src: #puc; on: click">
+                        sound="src: #bop; on: click">
                         <a-entity   id="trash_label"
                                     geometry="primitive:plane; width:1; height:0.3;"
                                     position="0 0.06 0"            
@@ -155,12 +162,13 @@
                                     text="font:roboto; size: 20; value: TRASH; align:center; wrapCount:10;"
                                     material="color:#2c2c2c;">
                         </a-entity>
-            </a-entity>           
+            </a-entity>      
+            
+            <!-- plate of pizza -->
             <a-entity   id="plate"
                         position= "0 0.5 0"
                         geometry="primitive:cylinder; radius:0.8; height:0.03;"
                         material="color:white;">
-
                         <a-entity   id="pizza"
                                     class="clickable"
                                     position= "0 0.1 0"
@@ -170,6 +178,7 @@
                         </a-entity>
             </a-entity>
 
+            <!-- clickable buttons -->
             <a-entity   id="reset_button"
                         class="clickable"
                         position= "-1.0 0.55 0.7"
@@ -178,33 +187,85 @@
                         material="color:#5b91f4;"
                         sound="src: #beep; on: click">
             </a-entity>
+
+            <!-- toppings column 1 -->
             <a-entity   id="sauce_button"
                         class="clickable"
-                        position= "1.0 0.55 -0.1"
+                        position= "1.2 0.5 -0.1"
+                        geometry="primitive:cylinder; radius:0.18; height:0.03;"
+                        material="color:white;"
                         create-topping-component=""
-                        geometry="primitive:cylinder; radius:0.1; height:0.05;"
-                        material="color:#b21807;"
                         sound="src: #wet; on: click">
+                <a-entity   position= "0 0.03 0"
+                            geometry="primitive:cylinder; radius:0.1; height:0.05;"
+                            material="color:#b21807;">
+                </a-entity>
             </a-entity>
             <a-entity   id="cheese_button"
                         class="clickable"
-                        position= "1.0 0.55 0.3"
+                        position= "1.2 0.5 0.3"
+                        geometry="primitive:cylinder; radius:0.18; height:0.03;"
+                        material="color:white;"
                         create-topping-component=""
-                        geometry="primitive:cylinder; radius:0.1; height:0.05;"
-                        material="color:#ffd867;"
                         sound="src: #blop; on: click">
+                <a-entity   position= "0 0.03 0"
+                            geometry="primitive:cylinder; radius:0.1; height:0.05;"
+                            material="color:#ffd867;">
+                </a-entity>
             </a-entity>
+            <!-- toppings column 2 -->
             <a-entity   id="pepperoni_button"
                         class="clickable"
-                        position= "1.0 0.55 0.7"
+                        position= "1.7 0.5 -0.1"
+                        geometry="primitive:cylinder; radius:0.18; height:0.03;"
+                        material="color:white;"
                         create-topping-component=""
-                        geometry="primitive:cylinder; radius:0.1; height:0.05;"
-                        material="color:#ca2521;"
                         sound="src: #blik; on: click">
+                <a-entity   position= "0 0.03 0"
+                            geometry="primitive:cylinder; radius:0.1; height:0.05;"
+                            material="color:#ca2521;">
+                </a-entity>
+            </a-entity>
+            <a-entity   id="gpepper_button"
+                        class="clickable"
+                        position= "1.7 0.5 0.3"
+                        geometry="primitive:cylinder; radius:0.18; height:0.03;"
+                        material="color:white;"
+                        create-topping-component=""
+                        sound="src: #plop; on: click">
+                <a-entity   position= "0 0.03 0"
+                            geometry="primitive:cylinder; radius:0.1; height:0.05;"
+                            material="color:#456c3b;">
+                </a-entity>
+            </a-entity>
+            <!-- toppings column 3 -->
+            <a-entity   id="mushroom_button"
+                        class="clickable"
+                        position= "2.2 0.5 -0.1"
+                        geometry="primitive:cylinder; radius:0.18; height:0.03;"
+                        material="color:white;"
+                        create-topping-component=""
+                        sound="src: #plop; on: click">
+                <a-entity   position= "0 0.03 0"
+                            geometry="primitive:cylinder; radius:0.1; height:0.05;"
+                            material="color:#dbccca;">
+                </a-entity>
+            </a-entity>
+            <a-entity   id="olive_button"
+                        class="clickable"
+                        position= "2.2 0.5 0.3"
+                        geometry="primitive:cylinder; radius:0.18; height:0.03;"
+                        material="color:white;"
+                        create-topping-component=""
+                        sound="src: #blik; on: click">
+                <a-entity   position= "0 0.03 0"
+                            geometry="primitive:cylinder; radius:0.1; height:0.05;"
+                            material="color:#3b3c36;">
+                </a-entity>
             </a-entity>
 
             <!-- player perspective, add cursor component to camera-->
-            <a-entity id="camera" position="0 1.2 2" camera look-controls collider-check>
+            <a-entity id="camera" position="0 1.3 1.8" camera look-controls collider-check>
                 <!-- cursor allows us to interact with objects; add raycaster and set constraints to increase performance -->
                 <a-entity   id="cursor"
                             cursor="rayOrigin:mouse"
